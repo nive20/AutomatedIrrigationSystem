@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Ports;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,12 @@ namespace WaterAllocationConsole
         private bool handleFields = true;
         private bool handleCanal = true;
 
+        //arduino controls
+        SerialPort port;
+        bool isConnected=false;
+        string connectAdruinoCommand = "#STAR\n";
+        string soilMoistureAdruinoCommand = "#SOIL\n";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -22,6 +29,15 @@ namespace WaterAllocationConsole
             this.DataContext = viewModel;
             WAViewModel.HeaderClick += WAViewModel_HeaderClick;
             LoadComboBox();
+            connectToArduino();
+        }
+        private void connectToArduino()
+        {
+            isConnected = true;
+            var serialports = SerialPort.GetPortNames();
+            port = new SerialPort(serialports.Last(), 9600, Parity.None, 8, StopBits.One);
+            port.Open();
+            port.Write(connectAdruinoCommand);
         }
 
         private void WAViewModel_HeaderClick(WAViewModel.ButtonClickType e)
@@ -107,9 +123,9 @@ namespace WaterAllocationConsole
             {
                 case "IKFB01":
                     txtDetails.Text = "10000 sq ft farm - planted urad dal as plantation for the durationn of 2021-2022";
-                    
+
                     //Map data from the sensor from the location
-                    lblSoil.Content = "300";
+                    lblSoil.Content = GetSoilMoisture();
                     //Map data from the weather report-percipitation
                     lblWeather.Content = "20%";
 
@@ -117,20 +133,36 @@ namespace WaterAllocationConsole
                 case "IKFM02":
                     txtDetails.Text = "7000 sq ft farm - planted rice dal as plantation for the durationn of 2021-2022";
                     //Map data from the sensor from the location
-                    lblSoil.Content = "500";
+                    lblSoil.Content = GetSoilMoisture();
                     //Map data from the weather report-percipitation
                     lblWeather.Content = "88%";
                     break;
                 case "IKFZ03":
                     txtDetails.Text = "25000 sq ft farm - planted wheat dal as plantation for the durationn of 2021-2022";
                     //Map data from the sensor from the location
-                    lblSoil.Content = "1000";
+                    lblSoil.Content = GetSoilMoisture();
                     //Map data from the weather report-percipitation
                     lblWeather.Content = "12%";
                     break;
             }
             var result = CalculateWaterTapStatus();
             lblTapStatus.Content = result == true ? "ON" : "OFF";
+        }
+
+        private string GetSoilMoisture()
+        {
+            string data = string.Empty;
+            port.Write(soilMoistureAdruinoCommand);
+            while (true)
+            {
+                data = port.ReadLine();
+                if (!string.IsNullOrEmpty(data))
+                {
+                    data = data.Split(':')[1];
+                    break;
+                }
+            }
+            return data;
         }
 
         private bool CalculateWaterTapStatus()
@@ -142,6 +174,13 @@ namespace WaterAllocationConsole
             else if (weatherPercipitation > 80)
                 return false;
             return true;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            isConnected = false;
+            port.Write("#STOP\n");
+            port.Close();
         }
     }
 }

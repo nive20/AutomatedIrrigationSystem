@@ -9,7 +9,7 @@
     Height="340"
     Topmost="True"
     WindowStartupLocation="CenterScreen"
-    WindowStyle="None">
+    WindowStyle="None" Closed="Window_Closed">
     <Grid>
         <Grid Margin="15,0,15,15">
             <Grid.RowDefinitions>
