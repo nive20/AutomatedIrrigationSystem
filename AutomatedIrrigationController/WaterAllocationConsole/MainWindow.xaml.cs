@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO.Ports;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -135,7 +137,7 @@ namespace WaterAllocationConsole
                     //Map data from the sensor from the location
                     lblSoil.Content = GetSoilMoisture();
                     //Map data from the weather report-percipitation
-                    lblWeather.Content = "20%";
+                    lblWeather.Content = GetPrecipitationData();
 
                     break;
                 case "IKFM02":
@@ -143,18 +145,34 @@ namespace WaterAllocationConsole
                     //Map data from the sensor from the location
                     lblSoil.Content = GetSoilMoisture();
                     //Map data from the weather report-percipitation
-                    lblWeather.Content = "88%";
+                    lblWeather.Content = GetPrecipitationData();
                     break;
                 case "IKFZ03":
                     txtDetails.Text = "25000 sq ft farm - planted wheat dal as plantation for the durationn of 2021-2022";
                     //Map data from the sensor from the location
                     lblSoil.Content = GetSoilMoisture();
                     //Map data from the weather report-percipitation
-                    lblWeather.Content = "12%";
+                    lblWeather.Content = GetPrecipitationData();
                     break;
             }
             var result = CalculateWaterTapStatus();
             lblTapStatus.Content = result == true ? "ON" : "OFF";
+        }
+        private string GetPrecipitationData()
+        {
+            string data = string.Empty;
+            try
+            {
+                string json = new WebClient().DownloadString("https://weatherapidata.eu-gb.mybluemix.net/api/values");
+                WeatherData items = JsonConvert.DeserializeObject<WeatherData>(json);
+                data = items.preceipechance;
+            }
+            catch (Exception ex)
+            {
+                Random random = new Random();
+                data = random.Next(0, 100).ToString();
+            }
+            return data;
         }
 
         private string GetSoilMoisture()
@@ -182,6 +200,7 @@ namespace WaterAllocationConsole
             }
             return data;
         }
+
 
         private bool CalculateWaterTapStatus()
         {
