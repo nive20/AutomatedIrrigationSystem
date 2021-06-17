@@ -1,0 +1,14 @@
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\bin\Debug\netcoreapp2.1\appsettings.Development.json
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\bin\Debug\netcoreapp2.1\appsettings.json
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\bin\Debug\netcoreapp2.1\WeatherDataAPIService.deps.json
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\bin\Debug\netcoreapp2.1\WeatherDataAPIService.runtimeconfig.json
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\bin\Debug\netcoreapp2.1\WeatherDataAPIService.runtimeconfig.dev.json
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\bin\Debug\netcoreapp2.1\WeatherDataAPIService.dll
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\bin\Debug\netcoreapp2.1\WeatherDataAPIService.pdb
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\obj\Debug\netcoreapp2.1\WeatherDataAPIService.csprojAssemblyReference.cache
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\obj\Debug\netcoreapp2.1\WeatherDataAPIService.AssemblyInfoInputs.cache
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\obj\Debug\netcoreapp2.1\WeatherDataAPIService.AssemblyInfo.cs
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\obj\Debug\netcoreapp2.1\WeatherDataAPIService.csproj.CoreCompileInputs.cache
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\obj\Debug\netcoreapp2.1\WeatherDataAPIService.dll
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\obj\Debug\netcoreapp2.1\WeatherDataAPIService.pdb
+C:\Users\Chandra_Mondal\source\repos\Demo2\Demo2\obj\Debug\netcoreapp2.1\WeatherDataAPIService.genruntimeconfig.cache
