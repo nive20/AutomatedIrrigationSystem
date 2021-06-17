@@ -159,9 +159,9 @@ namespace WaterAllocationConsole
 
         private string GetSoilMoisture()
         {
+            string data = string.Empty;
             try
             {
-                string data = string.Empty;
                 port.Write(soilMoistureAdruinoCommand);
                 while (true)
                 {
@@ -177,8 +177,10 @@ namespace WaterAllocationConsole
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to get data from arduino: {ex.Message}");
+                Random random = new Random();
+               data= random.Next(300, 900).ToString();
             }
-            return "500";
+            return data;
         }
 
         private bool CalculateWaterTapStatus()
