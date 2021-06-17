@@ -181,22 +181,14 @@ namespace WaterAllocationConsole
             try
             {
                 port.Write(soilMoistureAdruinoCommand);
-                while (true)
-                {
-                    data = port.ReadLine();
-                    if (!string.IsNullOrEmpty(data))
-                    {
-                        data = data.Split(':')[1];
-                        break;
-                    }
-                }
+                data = port.ReadLine();
                 return data;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to get data from arduino: {ex.Message}");
                 Random random = new Random();
-               data= random.Next(300, 900).ToString();
+               data= random.Next(30, 90).ToString();
             }
             return data;
         }
