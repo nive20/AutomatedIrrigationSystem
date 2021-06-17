@@ -33,11 +33,18 @@ namespace WaterAllocationConsole
         }
         private void connectToArduino()
         {
-            isConnected = true;
-            var serialports = SerialPort.GetPortNames();
-            port = new SerialPort(serialports.Last(), 9600, Parity.None, 8, StopBits.One);
-            port.Open();
-            port.Write(connectAdruinoCommand);
+            try
+            {
+                isConnected = true;
+                var serialports = SerialPort.GetPortNames();
+                port = new SerialPort(serialports.Last(), 9600, Parity.None, 8, StopBits.One);
+                port.Open();
+                port.Write(connectAdruinoCommand);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to connect to arduino {ex.Message}");
+            }
         }
 
         private void WAViewModel_HeaderClick(WAViewModel.ButtonClickType e)
@@ -151,18 +158,26 @@ namespace WaterAllocationConsole
 
         private string GetSoilMoisture()
         {
-            string data = string.Empty;
-            port.Write(soilMoistureAdruinoCommand);
-            while (true)
+            try
             {
-                data = port.ReadLine();
-                if (!string.IsNullOrEmpty(data))
+                string data = string.Empty;
+                port.Write(soilMoistureAdruinoCommand);
+                while (true)
                 {
-                    data = data.Split(':')[1];
-                    break;
+                    data = port.ReadLine();
+                    if (!string.IsNullOrEmpty(data))
+                    {
+                        data = data.Split(':')[1];
+                        break;
+                    }
                 }
+                return data;
             }
-            return data;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to get data from arduino: {ex.Message}");
+            }
+            return "500";
         }
 
         private bool CalculateWaterTapStatus()
@@ -178,9 +193,16 @@ namespace WaterAllocationConsole
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            isConnected = false;
-            port.Write("#STOP\n");
-            port.Close();
+            try
+            {
+                isConnected = false;
+                port.Write("#STOP\n");
+                port.Close();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Arduino not available.");
+            }
         }
     }
 }
