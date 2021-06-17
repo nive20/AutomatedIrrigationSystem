@@ -21,6 +21,7 @@ namespace WaterAllocationConsole
         bool isConnected=false;
         string connectAdruinoCommand = "#STAR\n";
         string soilMoistureAdruinoCommand = "#SOIL\n";
+        string StopAdruinoCommand = "#STOP\n";
 
         public MainWindow()
         {
@@ -196,7 +197,7 @@ namespace WaterAllocationConsole
             try
             {
                 isConnected = false;
-                port.Write("#STOP\n");
+                port.Write(StopAdruinoCommand);
                 port.Close();
             }
             catch (Exception)
