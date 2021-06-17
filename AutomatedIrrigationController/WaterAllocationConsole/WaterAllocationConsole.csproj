@@ -60,6 +60,7 @@
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="SystemParameterProperties.cs" />
     <Compile Include="WAViewModel.cs" />
+    <Compile Include="WeatherData.cs" />
     <Page Include="Dictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -109,6 +110,11 @@
     <Resource Include="Resources\Dell_SupportAssistAgent.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
