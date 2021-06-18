@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [Centralized Automated Irrigation System]
+- [Centralized Automated Irrigation System](# Centralized Automated Irrigation System)
   - [Contents](#contents)
   - [Short description](#short-description)
     - [What's the problem?](#whats-the-problem)
