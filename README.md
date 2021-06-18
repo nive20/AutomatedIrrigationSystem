@@ -70,8 +70,9 @@ You need to do arduino setup with soil Moisture sensor , LCD and LED and execute
 
 ## Built with
 
-- [IBM Cloud Functions](https://cloud.ibm.com/catalog/services/event-streams) - Platform for getting weather data under event stream.
-- [IBM API Connect](https://cloud.ibm.com/catalog?search=api%20connect#search_results) - The web framework used to get only required data hosted in IBM Cloud
+- [IBM Cloud Event-Stream](https://cloud.ibm.com/catalog/services/event-streams) - Platform for getting weather data under event stream. 
+- [IBM -Cloud-Hosted-Service](https://weatherapidata.eu-gb.mybluemix.net/api/values)-We have created our own WEB API service and hosted in IBM cloud.
+- [IBM API Connect](https://api.weather.com/v3/wx/forecast/daily/7day?geocode=48.1545703,11.2616557&format=json&units=m&language=en-US&apiKey=xxxxx) - The Weather company API to get the required data.
 - [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
 - [Arduino UNO](https://visualstudio.microsoft.com/downloads/)
 
