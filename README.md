@@ -35,7 +35,7 @@ Disaster Management and Farm Friendly 
 
 ## Demo video
 
-[![Watch the video](https://github.com/nive20/AutomatedIrrigationSystem/blob/master/images/DemoCover.PNG)](https://youtu.be/miqzJWapg4s)
+[![Watch the video](https://github.com/nive20/AutomatedIrrigationSystem/blob/master/images/DemoCover.PNG)](https://youtu.be/mTmDkKi7YxU)
 
 ## The architecture
 
