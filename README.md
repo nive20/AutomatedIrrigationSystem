@@ -82,4 +82,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## Authors
 
 - **Nivedita Parihar** - (https://github.com/nive20)
+- **Sreenivas Rao Manda**- (https://github.com/sreenigithub23)
+- **Chandra Mondal** -(https://github.com/Chandramondal)
+- **Priyanka Chandrabose**  -(https://github.com/PriyankaChandrabose)
 
