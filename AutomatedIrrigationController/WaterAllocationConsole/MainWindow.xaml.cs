@@ -115,6 +115,12 @@ namespace WaterAllocationConsole
             txtTapStatus.Text = string.Format("The Auto irrigation for the selected field {0} with respect to the soil dampness and rain forecast is to be turned {1} and the same staus is been sent to the canal {2} admin.",
                 selectedFieldName, result == true ? "ON" : "OFF", canalName);
         }
+
+        /// <summary>
+        /// get weather forecast from API for the field selected
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
         private string GetPrecipitationData(string fieldName)
         {
             string data = string.Empty;
@@ -123,6 +129,7 @@ namespace WaterAllocationConsole
                 string json = new WebClient().DownloadString("https://weatherapidata.eu-gb.mybluemix.net/api/values");
                 WeatherData items = JsonConvert.DeserializeObject<WeatherData>(json);
                 data = items.preceipechance;
+                lblWeather.Content = items.narrative;
             }
             catch (Exception)
             {
@@ -131,6 +138,12 @@ namespace WaterAllocationConsole
             }
             return data;
         }
+        
+        /// <summary>
+        /// Get soil Dampness from the sensor for the field selected
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
 
         private string GetSoilMoisture(string fieldName)
         {
@@ -144,7 +157,7 @@ namespace WaterAllocationConsole
             {
                 Console.WriteLine($"Failed to get data from arduino: {ex.Message}");
                 Random random = new Random();
-                data = random.Next(30, 90).ToString();
+               data= random.Next(30, 90).ToString();
             }
             return data;
         }
