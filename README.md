@@ -1,0 +1,97 @@
+# Centralised Automated Irrigation System
+
+## Contents
+
+- [Submission or project name](#submission-or-project-name)
+  - [Contents](#contents)
+  - [Short description](#short-description)
+    - [What's the problem?](#whats-the-problem)
+    - [How can technology help?](#how-can-technology-help)
+    - [The idea](#the-idea)
+  - [Demo video](#demo-video)
+  - [The architecture](#the-architecture)
+  - [Long description](#long-description)
+  - [Project roadmap](#project-roadmap)
+  - [Getting started](#getting-started)
+  - [Live demo](#live-demo)
+  - [Built with](#built-with)
+  - [Contributing](#contributing)
+  - [Versioning](#versioning)
+  - [Authors](#authors)
+  - [License](#license)
+  - [Acknowledgments](#acknowledgments)
+
+## Short description
+
+### What's the problem?
+
+If our advancement towards technology is progress, then underutilizing the same in sectors like Irrigation is regress.Water overflow OR Water scarcity due to poor manageability of water supply 
+Poor forecasting techniques of weather and soil dampness.Lack of water source capacity management  and automation.Less adaption of technology towards irrigation
+
+
+### How can technology help?
+
+We can leverage the Cloud and IoT concepts in building the mentioend solution
+
+### The idea
+
+Water resource management using IoT and Cloud infrastructure which can minimize the wastage and distribute effectively and efficiently using forecast and sensor technologies 
+This solution caters to Public and Private Irrigation sectors.High availability and seamless integration with water resources.Alert and Notification system which helps in sustainable distribution & management
+Disaster Management and Farm Friendly 
+
+## Demo video
+
+[![Watch the video](https://github.com/Call-for-Code/Liquid-Prep/blob/master/images/readme/IBM-interview-video-image.png)](https://youtu.be/miqzJWapg4s)
+
+## The architecture
+
+![Video transcription/translation app](https://developer.ibm.com/developer/tutorials/cfc-starter-kit-speech-to-text-app-example/images/cfc-covid19-remote-education-diagram-2.png)
+
+1. Soil Moisture Data is collected from Soil Moisture Sensor.
+2. Weather Data about rain is colleted from IBM cloud Weather API.
+3. Based on evalaution of both the value we decide if automatic irrigation is required or not.
+
+
+## Project roadmap
+
+The project currently does the following things.
+
+Weather and Soil dampness calculations
+Tap switching and channel identification
+
+#Future Roadmap
+
+Capacity calculation in Units 
+Reporting using AI / ML techniques
+End user communication capability
+Analytics at Control Center level
+Automated outflow incase of water scarcity with proper channeling 
+
+
+## Getting started
+
+You need to do arduino setup with soil Moisture sensor , LCD and LED and execute the WaterAllocationConsole.exe from this to see the centralized control center
+
+- [sample-react-app](./sample-react-app/)
+
+## Built with
+
+- [IBM Cloudant](https://cloud.ibm.com/catalog?search=cloudant#search_results) - The NoSQL database used
+- [IBM Cloud Functions](https://cloud.ibm.com/catalog?search=cloud%20functions#search_results) - The compute platform for handing logic
+- [IBM API Connect](https://cloud.ibm.com/catalog?search=api%20connect#search_results) - The web framework used
+- [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+- [Maven](https://maven.apache.org/) - Dependency management
+- [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors
+
+<a href="https://github.com/Call-for-Code/Project-Sample/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=Call-for-Code/Project-Sample" />
+</a>
+
+- **Nivedita Parihar** - _Initial work_ - [PurpleBooth](https://github.com/nive20)
+
