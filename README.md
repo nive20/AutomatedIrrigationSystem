@@ -14,7 +14,6 @@
   - [Project roadmap](#project-roadmap)
   - [Getting started](#getting-started)
   - [Built with](#built-with)
-  - [Contributing](#contributing)
   - [Authors](#authors)
 
 ## Short description
@@ -74,10 +73,8 @@ You need to do arduino setup with soil Moisture sensor , LCD and LED and execute
 
 - [IBM Cloud Functions](https://cloud.ibm.com/catalog?search=cloud%20functions#search_results) - The compute platform for hosting webAPI to get controller required data.
 - [IBM API Connect](https://cloud.ibm.com/catalog?search=api%20connect#search_results) - The web framework used to get only required data hosted in IBM Cloud
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+- [Visual Studio 2019]
+- [Arduino UNO]
 
 ## Authors
 
