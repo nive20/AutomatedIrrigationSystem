@@ -1,4 +1,4 @@
-# Centralised Automated Irrigation System
+# Centralized Automated Irrigation System
 
 ## Contents
 
