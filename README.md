@@ -55,7 +55,7 @@ The project currently does the following things.
 Weather and Soil dampness calculations
 Tap switching and channel identification
 
-#Future Roadmap
+Future Roadmap
 
 Capacity calculation in Units 
 Reporting using AI / ML techniques
@@ -68,16 +68,12 @@ Automated outflow incase of water scarcity with proper channeling
 
 You need to do arduino setup with soil Moisture sensor , LCD and LED and execute the WaterAllocationConsole.exe from this to see the centralized control center
 
-- [sample-react-app](./sample-react-app/)
+- [AutomatedIrrigationController](https://github.com/nive20/AutomatedIrrigationSystem/tree/master/AutomatedIrrigationController)
 
 ## Built with
 
-- [IBM Cloudant](https://cloud.ibm.com/catalog?search=cloudant#search_results) - The NoSQL database used
-- [IBM Cloud Functions](https://cloud.ibm.com/catalog?search=cloud%20functions#search_results) - The compute platform for handing logic
-- [IBM API Connect](https://cloud.ibm.com/catalog?search=api%20connect#search_results) - The web framework used
-- [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-- [Maven](https://maven.apache.org/) - Dependency management
-- [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+- [IBM Cloud Functions](https://cloud.ibm.com/catalog?search=cloud%20functions#search_results) - The compute platform for hosting webAPI to get controller required data.
+- [IBM API Connect](https://cloud.ibm.com/catalog?search=api%20connect#search_results) - The web framework used to get only required data hosted in IBM Cloud
 
 ## Contributing
 
