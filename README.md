@@ -41,11 +41,11 @@ Disaster Management and Farm Friendly 
 
 ## Demo video
 
-[![Watch the video](https://github.com/Call-for-Code/Liquid-Prep/blob/master/images/readme/IBM-interview-video-image.png)](https://youtu.be/miqzJWapg4s)
+[![Watch the video](https://github.com/nive20/AutomatedIrrigationSystem/blob/master/images/DemoCover.PNG)](https://youtu.be/miqzJWapg4s)
 
 ## The architecture
 
-![Video transcription/translation app](https://developer.ibm.com/developer/tutorials/cfc-starter-kit-speech-to-text-app-example/images/cfc-covid19-remote-education-diagram-2.png)
+![Video transcription/translation app](https://github.com/nive20/AutomatedIrrigationSystem/blob/master/images/CAIS.PNG)
 
 1. Soil Moisture Data is collected from Soil Moisture Sensor.
 2. Weather Data about rain is colleted from IBM cloud Weather API.
