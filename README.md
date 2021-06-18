@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [Submission or project name](#submission-or-project-name)
+- [Centralized Automated Irrigation System]
   - [Contents](#contents)
   - [Short description](#short-description)
     - [What's the problem?](#whats-the-problem)
