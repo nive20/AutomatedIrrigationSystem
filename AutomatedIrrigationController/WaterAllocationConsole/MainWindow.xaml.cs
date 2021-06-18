@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Net;
@@ -16,11 +17,10 @@ namespace WaterAllocationConsole
     {
         WAViewModel viewModel;
         private bool handleFields = true;
-        private bool handleCanal = true;
 
         //arduino controls
         SerialPort port;
-        bool isConnected=false;
+        bool isConnected = false;
         string connectAdruinoCommand = "#STAR\n";
         string soilMoistureAdruinoCommand = "#SOIL\n";
         string StopAdruinoCommand = "#STOP\n";
@@ -31,7 +31,6 @@ namespace WaterAllocationConsole
             viewModel = new WAViewModel();
             this.DataContext = viewModel;
             WAViewModel.HeaderClick += WAViewModel_HeaderClick;
-            LoadComboBox();
             connectToArduino();
         }
         private void connectToArduino()
@@ -66,16 +65,9 @@ namespace WaterAllocationConsole
             }
         }
 
-        private void LoadComboBox()
-        {
-            //Load Canal Dropdown List
-            cmbCanal.Items.Add("Canal1");
-            cmbCanal.Items.Add("Canal2");
-        }
-
         private void cmbFields_DropDownClosed(object sender, EventArgs e)
         {
-            if (handleFields) 
+            if (handleFields)
                 HandleFieldSelection();
             handleFields = true;
         }
@@ -90,75 +82,46 @@ namespace WaterAllocationConsole
             }
         }
 
-        private void cmbCanal_DropDownClosed(object sender, EventArgs e)
-        {
-            if (handleCanal) 
-                HandleCanalSelection();
-            handleCanal = true;
-        }
-
-        private void cmbCanal_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            System.Windows.Controls.ComboBox cmb = sender as System.Windows.Controls.ComboBox;
-            handleCanal = !cmb.IsDropDownOpen;
-            HandleCanalSelection();
-        }
-
-        private void HandleCanalSelection()
-        {
-            cmbFields.Items.Clear();
-            SPDetails.Visibility = Visibility.Hidden;
-            SPSoil.Visibility = Visibility.Hidden;
-            SPWeather.Visibility = Visibility.Hidden;
-            SPStatus.Visibility = Visibility.Hidden;
-            switch (cmbCanal.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
-            {
-                case "Canal1":
-                    cmbFields.Items.Add("IKFZ03");
-                    break;
-                case "Canal2":
-                    cmbFields.Items.Add("IKFB01");
-                    cmbFields.Items.Add("IKFM02");
-                    break;
-            }
-        }
-
         private void HandleFieldSelection()
         {
             SPDetails.Visibility = Visibility.Visible;
-            SPSoil.Visibility = Visibility.Visible;
-            SPWeather.Visibility = Visibility.Visible;
             SPStatus.Visibility = Visibility.Visible;
-            switch (cmbFields.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last())
+            SPData.Visibility = Visibility.Visible;
+            var list = new ObservableCollection<DataObject>();
+            list.Add(new DataObject() { Dampness = "Dampness %", Rain = "Rain Forecast %", TapStatus = "Irrigation Status" });
+            string canalName = string.Empty;
+            string selectedFieldName = cmbFields.SelectedItem.ToString().Split(new string[] { ": " }, StringSplitOptions.None).Last();
+
+            switch (selectedFieldName)
             {
                 case "IKFB01":
-                    txtDetails.Text = "10000 sq ft farm - planted urad dal as plantation for the durationn of 2021-2022";
-
-                    //Map data from the sensor from the location
-                    lblSoil.Content = GetSoilMoisture();
-                    //Map data from the weather report-percipitation
-                    lblWeather.Content = GetPrecipitationData();
-
+                    lblDetails.Content = "10000 sq ft farm - planted urad dal as plantation for the duration of 2021-2022 - Mapped to canal IKCB001";
+                    canalName = "IKCB001";
                     break;
                 case "IKFM02":
-                    txtDetails.Text = "7000 sq ft farm - planted rice dal as plantation for the durationn of 2021-2022";
-                    //Map data from the sensor from the location
-                    lblSoil.Content = GetSoilMoisture();
-                    //Map data from the weather report-percipitation
-                    lblWeather.Content = GetPrecipitationData();
+                    lblDetails.Content = "7000 sq ft farm - planted rice dal as plantation for the duration of 2021-2022 - Mapped to canal IKCM121";
+                    canalName = "IKCM121";
                     break;
                 case "IKFZ03":
-                    txtDetails.Text = "25000 sq ft farm - planted wheat dal as plantation for the durationn of 2021-2022";
-                    //Map data from the sensor from the location
-                    lblSoil.Content = GetSoilMoisture();
-                    //Map data from the weather report-percipitation
-                    lblWeather.Content = GetPrecipitationData();
+                    lblDetails.Content = "25000 sq ft farm - planted wheat dal as plantation for the duration of 2021-2022 - Mapped to canal IKCZ010";
+                    canalName = "IKCZ010";
                     break;
             }
-            var result = CalculateWaterTapStatus();
-            lblTapStatus.Content = result == true ? "ON" : "OFF";
+            string soilDampness = GetSoilMoisture(selectedFieldName);
+            string rainForecast = GetPrecipitationData(selectedFieldName);
+            var result = CalculateWaterTapStatus(soilDampness, rainForecast);
+            list.Add(new DataObject() { Dampness = soilDampness, Rain = rainForecast ,TapStatus = result == true ? "ON" : "OFF" });
+            this.dataGrid1.ItemsSource = list;
+            txtTapStatus.Text = string.Format("The Auto irrigation for the selected field {0} with respect to the soil dampness and rain forecast is to be turned {1} and the same staus is been sent to the canal {2} admin.",
+                selectedFieldName, result == true ? "ON" : "OFF", canalName);
         }
-        private string GetPrecipitationData()
+
+        /// <summary>
+        /// get weather forecast from API for the field selected
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
+        private string GetPrecipitationData(string fieldName)
         {
             string data = string.Empty;
             try
@@ -166,49 +129,45 @@ namespace WaterAllocationConsole
                 string json = new WebClient().DownloadString("https://weatherapidata.eu-gb.mybluemix.net/api/values");
                 WeatherData items = JsonConvert.DeserializeObject<WeatherData>(json);
                 data = items.preceipechance;
+                lblWeather.Content = items.narrative;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Random random = new Random();
                 data = random.Next(0, 100).ToString();
             }
             return data;
         }
+        
+        /// <summary>
+        /// Get soil Dampness from the sensor for the field selected
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns></returns>
 
-        private string GetSoilMoisture()
+        private string GetSoilMoisture(string fieldName)
         {
             string data = string.Empty;
             try
             {
                 port.Write(soilMoistureAdruinoCommand);
-                while (true)
-                {
-                    data = port.ReadLine();
-                    if (!string.IsNullOrEmpty(data))
-                    {
-                        data = data.Split(':')[1];
-                        break;
-                    }
-                }
-                return data;
+                data = port.ReadLine();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to get data from arduino: {ex.Message}");
                 Random random = new Random();
-               data= random.Next(300, 900).ToString();
+               data= random.Next(30, 90).ToString();
             }
             return data;
         }
 
 
-        private bool CalculateWaterTapStatus()
+        private bool CalculateWaterTapStatus(string soilDampness, string rainForecast)
         {
-            int soilDampness = Convert.ToInt32(lblSoil.Content);
-            int weatherPercipitation = Convert.ToInt32(lblWeather.Content.ToString().Trim('%'));
-            if (soilDampness < 500)
-                return false;
-            else if (weatherPercipitation > 80)
+            int soilDampnes = Convert.ToInt32(soilDampness);
+            int weatherPercipitation = Convert.ToInt32(rainForecast);
+            if (soilDampnes > 80 || weatherPercipitation > 80)
                 return false;
             return true;
         }
@@ -227,4 +186,12 @@ namespace WaterAllocationConsole
             }
         }
     }
+
+    public class DataObject
+    {
+        public string Dampness { get; set; }
+        public string Rain { get; set; }
+        public string TapStatus { get; set; }
+    }
+
 }
