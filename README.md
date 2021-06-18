@@ -89,9 +89,5 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-<a href="https://github.com/Call-for-Code/Project-Sample/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=Call-for-Code/Project-Sample" />
-</a>
-
-- **Nivedita Parihar** - _Initial work_ - [PurpleBooth](https://github.com/nive20)
+- **Nivedita Parihar** - (https://github.com/nive20)
 
